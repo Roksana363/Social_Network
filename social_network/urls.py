@@ -18,14 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 #Импорты приложений
-from home import views as home_view
-from register import views as register_view
+from home import views as home_views
+from register import views as register_views
+from login import views as login_views
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
 ]
 
 urlpatterns += i18n_patterns(
-    path('register/', register_view.register, name='register'),
-    path('', home_view.index_home, name='home'),
+    path('register/', register_views.register_view, name='register'),
+    path('login/', login_views.login_view, name='login'),
+    path('', home_views.index_home, name='home'),
 )

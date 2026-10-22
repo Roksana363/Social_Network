@@ -1,6 +1,11 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import User
 
-class RegisterForm(forms.Form):
+from .models import LoginForm
+
+
+class RegisterForm(forms.Mo):
     name = forms.CharField(max_length=100, label = "Имя")
     login = forms.CharField(label = "Логин")
     email = forms.EmailField(label = "Email")
@@ -22,5 +27,18 @@ class RegisterForm(forms.Form):
                                  ('Спорт', 'Спорт'),
                                  ('Еда', 'Еда'),
                                  ('Танцы', 'Танцы'),
-                             ], widget = forms.SelectMultiple()
+                             ], widget = forms.CheckboxSelectMultiple,
+                                required = False,
                              )
+    class Meta(UserCreationForm.Meta):
+        model = LoginForm
+        fields = [
+            'name',
+            'login',
+            'email',
+            'password',
+            'confirm_password',
+            'age',
+            'work',
+            'hobby'
+        ]
